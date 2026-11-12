@@ -43,10 +43,10 @@ ORGANISM_TAIL_RE = re.compile(r"\s*\[[^\[\]]+\]\s*$")
 def parse_name(stitle: str) -> str:
     m = RECNAME_RE.search(stitle)
     if m:
-        return m.group(1).strip()
+        return ORGANISM_TAIL_RE.sub("", m.group(1)).strip()
     m = FULL_FALLBACK_RE.search(stitle)
     if m:
-        return m.group(1).strip()
+        return ORGANISM_TAIL_RE.sub("", m.group(1)).strip()
     # last resort: whole stitle minus a trailing "[Organism]" tag
     return ORGANISM_TAIL_RE.sub("", stitle).strip()
 
